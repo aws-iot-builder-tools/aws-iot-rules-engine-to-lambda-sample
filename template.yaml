@@ -1,0 +1,63 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  rules-engine-to-lambda
+
+  Sample SAM Template for rules-engine-to-lambda
+
+Globals:
+  Function:
+    Timeout: 60
+    Tracing: Active
+
+Resources:
+  RulesHandlingFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: app/
+      Handler: app.lambdaHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      Tracing: Active
+      Environment:
+        Variables:
+          POWERTOOLS_SERVICE_NAME: RulesToLambdaService
+          POWERTOOLS_METRICS_NAMESPACE: rules-engine-to-lambda
+          LOG_LEVEL: INFO
+      EventInvokeConfig:
+        DestinationConfig:
+          OnFailure:
+            Type: SQS
+            Destination: !GetAtt FailedRequestsQueue.Arn
+        MaximumEventAgeInSeconds: 60
+        MaximumRetryAttempts: 2
+      Events:
+        IoTLambda:
+          Type: IoTRule
+          Properties:
+            AwsIotSqlVersion: 2016-03-23
+            Sql: SELECT * FROM 'device/+/from-device'
+
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2020"
+        EntryPoints:
+        - app.ts
+
+  FailedRequestsQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: "FailedRequestsQueue"
+      VisibilityTimeout: 300
+      KmsMasterKeyId: alias/aws/sqs
+
+Outputs:
+  RulesHandlingFunction:
+    Description: "RulesHandlingFunction  ARN"
+    Value: !GetAtt   RulesHandlingFunction.Arn
+  RulesHandlingFunctionIamRole:
+    Description: "Implicit IAM Role for RulesHandlingFunction"
+    Value: !GetAtt   RulesHandlingFunction.Arn
