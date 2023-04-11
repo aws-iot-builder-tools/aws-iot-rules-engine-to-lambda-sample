@@ -1,11 +1,18 @@
 # AWS IoT Rules Engine with AWS Lambda Action Example
 This is a project built and deployed using AWS SAM, and accompanies the blog on [How to ensure resilience for your AWS IoT Rules Engine to AWS Lambda integration](https://dev.to/iotbuilders/how-to-ensure-resilience-for-your-aws-iot-rules-engine-to-aws-lambda-integration-1aoi).
 
-The small demo application shows how to configure AWS Lambda Powertools for Typescript tracer and logger using descriptors, in order to create the Service Map and the needed tracing, to understand the asynchrnous invocation behaviour of AWS Lambda from the AWS IoT Rules Engine.
-To demonstrate how AWS IoT Rules Engine works when invoking AWS Lambda, and how AWS Lambda behaves when invoked asynchronous, a small Typescript Lambda function, app.ts, was created to return an error. Because AWS Lambda is invoked asynchrnously, we will see that the AWS IoT Rules Engine receives a 202 response from Lambda, even if the execution fails.
-Also, as the SAM template shows, configuring a Destination for the AWS Lambda failed events helps with ensuring resilience (that no data goes missing).
+The small demo application shows a basic configuration of AWS Lambda Powertools for Typescript tracer and logger using descriptors. 
+
+The Service Map and tracing are created and used to understand the asynchronous invocation behaviour of AWS Lambda from the AWS IoT Rules Engine.
+To demonstrate how AWS IoT Rules Engine works when invoking AWS Lambda and how AWS Lambda behaves when invoked asynchronously, a small Typescript Lambda function, app.ts, was created to return an error. 
+Because AWS Lambda is invoked asynchronously, we will see that the AWS IoT Rules Engine receives a 202 response from AWS Lambda, even if the function execution fails.
+Also, as the SAM template shows how configuring a Destination for the AWS Lambda failed events helps with ensuring resilience (that no data goes missing).
 
 Have a look at the [blog](https://dev.to/iotbuilders/how-to-ensure-resilience-for-your-aws-iot-rules-engine-to-aws-lambda-integration-1aoi) to learn more.
+
+## High Level Architecture
+
+![high-level-arch](img/high-level-arch.png)
 
 ## Build and deploy the application
 
