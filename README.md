@@ -5,7 +5,7 @@ The small demo application shows how to configure AWS Lambda Powertools for Type
 To demonstrate how AWS IoT Rules Engine works when invoking AWS Lambda, and how AWS Lambda behaves when invoked asynchronous, a small Typescript Lambda function, app.ts, was created to return an error. Because AWS Lambda is invoked asynchrnously, we will see that the AWS IoT Rules Engine receives a 202 response from Lambda, even if the execution fails.
 Also, as the SAM template shows, configuring a Destination for the AWS Lambda failed events helps with ensuring resilience (that no data goes missing).
 
-Have a look at the [blog on dev.to]((https://dev.to/iotbuilders/how-to-ensure-resilience-for-your-aws-iot-rules-engine-to-aws-lambda-integration-1aoi)), to learn mores.
+Have a look at the [blog](https://dev.to/iotbuilders/how-to-ensure-resilience-for-your-aws-iot-rules-engine-to-aws-lambda-integration-1aoi) to learn more.
 
 ## Build and deploy the application
 
@@ -14,7 +14,7 @@ You can use AWS SAM to build and run this test application.
 To use the SAM CLI, you need to install the following tools:
 
 * SAM CLI - [Install the SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
-* Node.js - [Install Node.js 14](https://nodejs.org/en/), including the NPM package management tool.
+* Node.js - [Install Node.js](https://nodejs.org/en/), including the NPM package management tool.
 
 To build and deploy your application for the first time, run the following in your shell:
 
