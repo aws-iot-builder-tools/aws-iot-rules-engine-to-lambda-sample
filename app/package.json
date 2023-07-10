@@ -5,6 +5,9 @@
   "main": "app.js",
   "author": "alinadima",
   "license": "MIT-0",
+  "overrides": {
+    "semver": "^7.5.3"
+  },
   "dependencies": {
     "esbuild": "^0.14.14",
     "@types/aws-lambda":"^8.10.108",
